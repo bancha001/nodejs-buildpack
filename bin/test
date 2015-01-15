@@ -111,18 +111,27 @@ testProcfileAbsentNpmStartPresent() {
   assertCapturedSuccess
 }
 
-testEnvDirNotImported() {
+testEnvfileNotImported() {
   compile "stable-node"
-  assertNotCaptured "Exporting config vars to environment"
+  assertNotCaptured "Importing application config vars"
   assertCapturedSuccess
 }
 
-testEnvDirExported() {
-  env_dir=$(mktmpdir)
-  echo "chicken" > $env_dir/birds
-  echo "koi" > $env_dir/fish
-  compile "stable-node" "$(mktmpdir)" $env_dir
-  assertCaptured "Exporting config vars to environment"
+testEnvfileImported() {
+  env_file=$(mktemp)
+  echo "FOO=1" > $env_file
+  compile "stable-node" "$(mktmpdir)" $env_file
+  assertCaptured "Importing application config vars"
+  assertCapturedSuccess
+}
+
+testIbmModuleDependency() {
+  cache=$(mktmpdir)
+  compile "ibm_db-pacakge-json" $cache
+  assertCaptured "downloading DB2 ODBC driver"
+  assertCapturedSuccess
+  compile "ibm_db-pacakge-json" $cache
+  assertCaptured "Restoring DB2 ODBC driver [DB2 CLI] setup from cache"
   assertCapturedSuccess
 }
 
