@@ -59,5 +59,5 @@ install_canvas_libs(){
 	status "Configured ok"
 	make install
 	status "Installed ok"
-	cd ${DB2_DIR}
+	cd ${LIB_DIR}
 }
