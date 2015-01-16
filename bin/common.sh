@@ -53,8 +53,9 @@ install_canvas_libs(){
       cairo_url="http://cairographics.org/releases/cairo-1.12.8.tar.gz"
       curl ${cairo_url} -s -o cairo.tgz
       status "Downloaded ok"
-      tar -xzf cairo.tgz
     fi
+    rm -rf cairo-1.12.8
+    tar -xzf cairo.tgz
     cd cairo-1.12.8
     status "Configure now"
 	./configure --disable-dependency-tracking
