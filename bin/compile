@@ -63,6 +63,14 @@ if test -d $build_dir/node_modules; then
   status "Found existing node_modules directory; skipping cache"
   status "Rebuilding any native dependencies"
   
+  #if canvas module is a dependency setup cairo
+  status "Check canvas dependency"
+  if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
+    status "Install cairo"
+    yum install cairo-devel
+  fi
+  status "Installed cairo done"
+  
   # if ibm_db module is a dependency setup DB2 ODBC [DB2 CLI]
   if [ $(npm ls 2>&1|grep -c ibm_db) -ne 0 ] ; then
      # if ibm_db exists in package.json and cache_dir has db2 ODBC [DB2 CLI] restore from cache
@@ -80,14 +88,6 @@ if test -d $build_dir/node_modules; then
        rm -r $cache_dir/clidriver
      fi
   fi
-  
-  #if canvas module is a dependency setup cairo
-  status "Check canvas dependency"
-  if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
-    status "Install cairo"
-    yum install cairo-devel
-  fi
-  status "Installed cairo done"
 
   npm rebuild 2>&1 | indent
 elif test -d $cache_dir/node_modules; then
