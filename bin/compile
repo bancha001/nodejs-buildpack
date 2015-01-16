@@ -57,19 +57,19 @@ PATH=$PATH:$build_dir/vendor/node/bin
 # Run subsequent node/npm commands from the build path
 cd $build_dir
 
+#if canvas module is a dependency setup cairo
+status "Check canvas dependency"
+if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
+  status "Install cairo"
+  yum install cairo-devel
+fi
+status "Installed cairo done"
+
 # If node_modules directory is checked into source control then
 # rebuild any native deps. Otherwise, restore from the build cache.
 if test -d $build_dir/node_modules; then
   status "Found existing node_modules directory; skipping cache"
   status "Rebuilding any native dependencies"
-  
-  #if canvas module is a dependency setup cairo
-  status "Check canvas dependency"
-  if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
-    status "Install cairo"
-    yum install cairo-devel
-  fi
-  status "Installed cairo done"
   
   # if ibm_db module is a dependency setup DB2 ODBC [DB2 CLI]
   if [ $(npm ls 2>&1|grep -c ibm_db) -ne 0 ] ; then
