@@ -47,7 +47,9 @@ status "Using node version 0.10.21"
 status "Check canvas dependency"
 if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
   status "Install cairo"
+  yum install pkgconfig
   yum install cairo-devel
+  yum install pixman-*
 fi
 status "Installed cairo done"
 
