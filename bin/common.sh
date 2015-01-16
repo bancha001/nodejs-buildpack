@@ -50,13 +50,13 @@ install_canvas_libs(){
     status "go into ${LIB_DIR}"
     cd $LIB_DIR
     if [ ! -d "${LIB_DIR}/cairo-1.12.8" ]; then
-      cairo_url="http://cairographics.org/releases/cairo-1.12.8.tar.gz"
+      cairo_url="http://cairographics.org/releases/cairo-1.12.8.tar.xz"
       curl ${cairo_url} -s -o cairo.tgz
       status "Downloaded ok"
     else
       rm -rf cairo-1.12.8
     fi
-    tar -xzf cairo.tgz
+    tar -zxf cairo.tgz
     cd cairo-1.12.8
     status "Configure now"
 	./configure --disable-dependency-tracking
