@@ -80,6 +80,16 @@ if test -d $build_dir/node_modules; then
        rm -r $cache_dir/clidriver
      fi
   fi
+  
+  #if canvas module is a dependency setup cairo
+  status "Check canvas dependency"
+  if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
+    status "Installing cairo"
+    yum install pkgconfig
+    yum install cairo-devel
+    yum install pixman-*
+  fi
+  status "Installed cairo done"
 
   npm rebuild 2>&1 | indent
 elif test -d $cache_dir/node_modules; then
@@ -121,16 +131,6 @@ fi
   if [ $(npm ls 2>&1|grep -c ibm_db) -ne 0 ]; then
       install_db2_odbc "${build_dir}"
   fi
-  
-  #if canvas module is a dependency setup cairo
-  status "Check canvas dependency"
-  if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
-    status "Installing cairo"
-    yum install pkgconfig
-    yum install cairo-devel
-    yum install pixman-*
-  fi
-  status "Installed cairo done"
    
   # Make npm output to STDOUT instead of its default STDERR
   npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
