@@ -67,9 +67,7 @@ if test -d $build_dir/node_modules; then
   status "Check canvas dependency"
   if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
     status "Installing cairo"
-    yum install pkgconfig
-    yum install cairo-devel
-    yum install pixman-*
+    install_canvas_libs "${build_dir}"
   fi
   status "Installed cairo done"
   
