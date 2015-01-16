@@ -47,9 +47,9 @@ install_db2_odbc() {
 #canvas module dependency setup for cairo
 install_canvas_libs(){
     LIB_DIR="$1"
-    status "go into $LIB_DIR"
+    status "go into ${LIB_DIR}"
     cd ${LIB_DIR}
-    if [ ! -d "$LIB_DIR/cairo-1.12.8" ]; then
+    if [ ! -d "${LIB_DIR}/cairo-1.12.8" ]; then
       curl https://github.com/plainfield/nodejs-libs/cairo-1.12.8.tar.xz -o cairo.tar.xz
       status "Downloaded ok"
       tar -zxf cairo.tar.xz
