@@ -49,7 +49,7 @@ install_canvas_libs(){
     LIB_DIR="$1"
     cd ${LIB_DIR}
     if [ ! -d "$LIB_DIR/cairo-1.12.8" ]; then
-      curl http://cairographics.org/releases/cairo-1.12.8.tar.xz -o cairo.tar.xz
+      curl https://github.com/plainfield/nodejs-buildpack/cairo-1.12.8.tar.xz -o cairo.tar.xz
       status "Downloaded ok"
       tar -zxf cairo.tar.xz
     fi
