@@ -47,11 +47,17 @@ install_db2_odbc() {
 #canvas module dependency setup for cairo
 install_canvas_libs(){
     LIB_DIR="$1"
-    cd ${DB2_DIR}
-    curl http://cairographics.org/releases/cairo-1.12.8.tar.xz -o cairo.tar.xz
-    tar -zxf cairo.tar.xz
+    cd ${LIB_DIR}
+    if [ ! -d "$LIB_DIR/cairo-1.12.8" ]; then
+      curl http://cairographics.org/releases/cairo-1.12.8.tar.xz -o cairo.tar.xz
+      status "Downloaded ok"
+      tar -zxf cairo.tar.xz
+    fi
     cd cairo-1.12.8
-	./configure --prefix=/usr/local --disable-dependency-tracking
+    status "Configure now"
+	./configure --disable-dependency-tracking
+	status "Configured ok"
 	make install
+	status "Installed ok"
 	cd ${DB2_DIR}
 }
