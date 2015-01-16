@@ -43,16 +43,6 @@ status "Using node version 0.10.21"
 #  status "Resolved node version: $node_version"
 #fi
 
-#if canvas module is a dependency setup cairo
-status "Check canvas dependency"
-if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
-  status "Install cairo"
-  yum install pkgconfig
-  yum install cairo-devel
-  yum install pixman-*
-fi
-status "Installed cairo done"
-
 # Download node from Heroku's S3 mirror of nodejs.org/dist
 status "Downloading and installing node"
 node_url="http://s3pository.heroku.com/node/v$node_version/node-v$node_version-linux-x64.tar.gz"
@@ -131,6 +121,16 @@ fi
   if [ $(npm ls 2>&1|grep -c ibm_db) -ne 0 ]; then
       install_db2_odbc "${build_dir}"
   fi
+  
+  #if canvas module is a dependency setup cairo
+  status "Check canvas dependency"
+  if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
+    status "Installing cairo"
+    yum install pkgconfig
+    yum install cairo-devel
+    yum install pixman-*
+  fi
+  status "Installed cairo done"
    
   # Make npm output to STDOUT instead of its default STDERR
   npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
