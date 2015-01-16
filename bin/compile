@@ -80,6 +80,11 @@ if test -d $build_dir/node_modules; then
        rm -r $cache_dir/clidriver
      fi
   fi
+  
+  #if canvas module is a dependency setup cairo
+  if [ $(npm ls 2>&1|grep -c canvas) -ne 0 ] ; then
+    yum install cairo-devel
+  fi
 
   npm rebuild 2>&1 | indent
 elif test -d $cache_dir/node_modules; then
