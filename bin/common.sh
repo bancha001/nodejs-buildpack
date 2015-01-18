@@ -46,6 +46,7 @@ install_db2_odbc() {
 
 #canvas module dependency setup for cairo
 install_canvas_libs(){
+    uname -a
     LIB_DIR=$1
     status "go into ${LIB_DIR}"
     cd $LIB_DIR
@@ -59,7 +60,7 @@ install_canvas_libs(){
     tar -zxf cairo.tgz
     cd cairo-1.12.0
     status "Configure now"
-	./configure --disable-dependency-tracking
+	./configure
 	status "Configured ok"
 	make install
 	status "Installed ok"
