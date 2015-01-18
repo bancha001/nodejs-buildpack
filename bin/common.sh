@@ -49,6 +49,6 @@ install_canvas_libs(){
     status "get OS information"
     uname -a
     status "Installing cairo"
-    sudo apt-get install libcairo2-dev
-	status "Installed ok"
+    apt-get install libcairo2-dev
+    status "Installed ok"
 }
