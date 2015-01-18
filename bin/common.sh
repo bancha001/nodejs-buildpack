@@ -49,6 +49,8 @@ install_canvas_libs(){
     status "get OS information"
     uname -a
     status "Installing cairo now"
-    sudo apt-get install libcairo2-dev
+    sudo apt-get update
+    sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
+    #sudo apt-get install libcairo2-dev
     status "Installed ok"
 }
