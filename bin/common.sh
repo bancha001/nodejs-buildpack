@@ -48,4 +48,24 @@ install_db2_odbc() {
 install_canvas_libs(){
     status "get OS information"
     uname -a
+    status "Installing cairo now"
+    LIB_DIR=$1
+    status "go into ${LIB_DIR}"
+    cd $LIB_DIR
+    if [ ! -d "${LIB_DIR}/cairo-1.12.18" ]; then
+      cairo_url="http://cairographics.org/releases/cairo-1.12.18.tar.xz"
+      curl ${cairo_url} -s -o cairo.tar.xz
+      status "Downloaded ok"
+    else
+      rm -rf cairo-1.12.18
+    fi
+    xz -d cairo.tar.xz
+    tar -xvf cairo.tar
+    cd cairo-1.12.18
+    status "Configure now"
+	./configure
+	status "Configured ok"
+	make install
+	status "Installed ok"
+	cd $LIB_DIR
 }
