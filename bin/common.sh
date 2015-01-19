@@ -49,8 +49,22 @@ install_canvas_libs(){
     status "get OS information"
     uname -a
     status "Installing cairo now"
-    sudo apt-get update
-    sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
-    #sudo apt-get install libcairo2-dev
-    status "Installed ok"
+    LIB_DIR=$1
+    status "go into ${LIB_DIR}"
+    cd $LIB_DIR
+    if [ ! -d "${LIB_DIR}/cairo-1.12.0" ]; then
+      cairo_url="http://cairographics.org/releases/cairo-1.12.0.tar.gz"
+      curl ${cairo_url} -s -o cairo.tgz
+      status "Downloaded ok"
+    else
+      rm -rf cairo-1.12.0
+    fi
+    tar -zxf cairo.tgz
+    cd cairo-1.12.0
+    status "Configure now"
+	./configure
+	status "Configured ok"
+	make install
+	status "Installed ok"
+	cd $LIB_DIR
 }
