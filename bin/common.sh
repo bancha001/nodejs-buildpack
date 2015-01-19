@@ -63,7 +63,7 @@ install_canvas_libs(){
     tar -xzf pixman.tgz
     cd pixman-0.32.6
     status "Configuring pixman now"
-	./configure --disable-dependency-tracking
+	./configure
 	status "Configured pixman ok"
 	make install
 	status "Installed pixman ok"
