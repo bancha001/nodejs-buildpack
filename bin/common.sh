@@ -63,9 +63,9 @@ install_canvas_libs(){
     tar -xzf pixman.tgz
     cd pixman-0.32.6
     status "Configuring pixman now"
-	./configure
+	./configure --disable-dependency-tracking
 	status "Configured pixman ok"
-	sudo make install
+	make install
 	status "Installed pixman ok"
 	#install cairo
 	status "Installing cario now"
