@@ -65,7 +65,7 @@ install_canvas_libs(){
     status "Configuring pixman now"
 	./configure
 	status "Configured pixman ok"
-	make install
+	sudo make install
 	status "Installed pixman ok"
 	#install cairo
 	status "Installing cario now"
