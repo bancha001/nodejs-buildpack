@@ -15,8 +15,8 @@ bp_dir=$(cd $(dirname $0); cd ..; pwd)
 source $bp_dir/bin/common.sh
 
 #Install OS lib
-sudo apt-get install libcairo2-dev
-sudo apt-get install libjpeg-dev
+#sudo apt-get install libcairo2-dev
+#sudo apt-get install libjpeg-dev
 echo 'OS version'
 lsb_release -d
 
